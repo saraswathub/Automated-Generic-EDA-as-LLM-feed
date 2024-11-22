@@ -32,4 +32,15 @@ This project provides an **Automated Exploratory Data Analysis (EDA)** pipeline 
    pip install -r requirements.txt
 3. Set up your LLM API credentials (e.g., OpenAI API or other providers). Update config.yaml or environment variables with your API key.
 
+## Dependencies
+
+    Python 3.8+
+    Libraries:
+        pandas
+        numpy
+        matplotlib
+        seaborn
+        scikit-learn
+        openai (or another LLM library)
+
    
