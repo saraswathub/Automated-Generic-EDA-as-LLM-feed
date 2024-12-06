@@ -107,9 +107,7 @@ def perform_detailed_textual_eda(dataset_path):
     description += "\n"
 
     description += "Extended EDA Completed."
-    return description
 
-# Example usage
 # Replace 'dataset.csv' with the path to your dataset
 dataset_path = 'dataset.csv'
 eda_description = perform_detailed_textual_eda(dataset_path)
