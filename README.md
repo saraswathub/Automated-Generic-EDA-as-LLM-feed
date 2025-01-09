@@ -11,6 +11,13 @@ This project provides an **Automated Exploratory Data Analysis (EDA)** pipeline 
 - **Automated Visualizations**: Generates relevant visualizations (e.g., histograms, scatter plots, heatmaps) to support the findings.
 - **LLM Integration**: Translates technical EDA results into human-readable summaries and business insights.
 
+In this script:
+
+   1) The load_dataset function loads the dataset from the given path.
+   2) The perform_detailed_textual_eda function performs the EDA and extracts relevant data values into a dictionary.
+   3) The generate_vector_embeddings function generates vector embeddings for the extracted values using a pre-trained sentence-transformers model.
+
+
 ## Architecture
 
 1. **Input**: Upload a structured dataset (CSV, Excel, etc.).
