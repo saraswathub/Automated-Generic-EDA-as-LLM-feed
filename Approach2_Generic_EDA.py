@@ -117,7 +117,7 @@ def generate_vector_embeddings(sentences):
     embeddings = model.encode(sentences)
     return embeddings
 
-# Replace 'dataset.csv' with the path to your dataset
+
 dataset_path = '/Users/ballu_macbookpro/Downloads/titanic.csv'
 eda_description = perform_detailed_textual_eda(dataset_path)
 print(eda_description)
