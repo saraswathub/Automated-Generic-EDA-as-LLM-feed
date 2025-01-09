@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
+from sentence_transformers import SentenceTransformer
+
+# Initialize the transformer model for generating embeddings
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def perform_detailed_textual_eda(dataset_path):
-
     try:
         # Load dataset
         df = pd.read_csv(dataset_path)
@@ -108,7 +111,20 @@ def perform_detailed_textual_eda(dataset_path):
 
     description += "Extended EDA Completed."
 
+    return description
+
+def generate_vector_embeddings(sentences):
+    embeddings = model.encode(sentences)
+    return embeddings
+
 # Replace 'dataset.csv' with the path to your dataset
-dataset_path = 'dataset.csv'
+dataset_path = '/Users/ballu_macbookpro/Downloads/titanic.csv'
 eda_description = perform_detailed_textual_eda(dataset_path)
 print(eda_description)
+
+# Generate vector embeddings for extracted values
+extracted_values = eda_description.split('\n')
+embeddings = generate_vector_embeddings(extracted_values)
+print("\n--- Vector Embeddings ---\n")
+for value, embedding in zip(extracted_values, embeddings):
+    print(f"Value: {value}\nEmbedding: {embedding}\n")
