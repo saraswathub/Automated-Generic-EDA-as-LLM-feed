@@ -1,11 +1,13 @@
 import pandas as pd
 import numpy as np
 from sentence_transformers import SentenceTransformer
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.decomposition import PCA
 
 # Initialize the transformer model for generating embeddings
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-def perform_detailed_textual_eda(dataset_path):
+def perform_detailed_textual_eda(dataset_path, n_components=2):
     try:
         # Load dataset
         df = pd.read_csv(dataset_path)
@@ -108,6 +110,25 @@ def perform_detailed_textual_eda(dataset_path):
     for column, outliers in outlier_summary.items():
         description += f"{column}: {outliers} outlier(s) detected\n"
     description += "\n"
+
+    # One Hot Encoding for Categorical Columns
+    description += "--- One Hot Encoding ---\n"
+    if not categorical_columns.empty:
+        encoder = OneHotEncoder(sparse=False)
+        encoded_df = pd.DataFrame(encoder.fit_transform(df[categorical_columns]))
+        encoded_df.columns = encoder.get_feature_names_out(categorical_columns)
+        df = df.drop(columns=categorical_columns).reset_index(drop=True)
+        df = pd.concat([df, encoded_df], axis=1)
+        description += "One hot encoding applied to categorical columns.\n\n"
+    else:
+        description += "No categorical columns available for one hot encoding.\n\n"
+
+    # PCA for Dimensionality Reduction
+    description += "--- PCA for Dimensionality Reduction ---\n"
+    pca = PCA(n_components=n_components)
+    principal_components = pca.fit_transform(df)
+    pca_df = pd.DataFrame(data=principal_components, columns=[f'PC{i+1}' for i in range(n_components)])
+    description += f"PCA applied with {n_components} components. Explained variance ratio: {pca.explained_variance_ratio_}\n\n"
 
     description += "Extended EDA Completed."
 
