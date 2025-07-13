@@ -48,6 +48,6 @@ In this script:
         matplotlib
         seaborn
         scikit-learn
-        openai (or another LLM library) Or any other API
+        openai (or another LLM library)
 
    
